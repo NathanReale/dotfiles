@@ -1,16 +1,9 @@
 # Skip this for non-interactive shelld
 [[ -z "$PS1" ]] && return
 
-# Add directories to PATH
-# Add npm to the directory path
-# Add Google App Engine
-export PATH="$PATH:/usr/games:/Users/nathan/bin:/usr/local/share/npm/bin:/Users/nathan/bin/go_appengine"
-
 # Set the SVN Editor
 export SVN_EDITOR=vim
 
-# Load RVM
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
 [ -f /etc/DIR_COLORS ] && eval $(dircolors -b /etc/DIR_COLORS)
 export ZLSCOLORS="${LS_COLORS}"
@@ -44,11 +37,6 @@ set -o vi
 # Bind keys to search back in history using up and down keys
 bindkey '\e[A' history-search-backward
 bindkey '\e[B' history-search-forward
-
-# Source .zsh_aliases
-if [[ -f $HOME/.zsh_aliases ]]; then
-	. $HOME/.zsh_aliases
-fi
 
 # Prompt Colors
 autoload colors zsh/terminfo
@@ -89,7 +77,19 @@ function precmd() {
 }
 
 
-# PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+# Source .zsh_aliases
+if [[ -f $HOME/.zsh_aliases ]]; then
+	. $HOME/.zsh_aliases
+fi
 
-# Include the z script for intelligent directory jumping
-. $HOME/bin/z.sh
+
+PLATFORM=`uname`
+
+if [[ $PLATFORM == "Darwin" ]] ; then
+  PLATFORM=osx
+elif [[ $PLATFORM == "Linux" ]] ; then
+  PLATFORM=linux
+fi
+
+# Load platform-specific configurations
+[[ -s "~/.zsh/$PLATFORM.zsh" ]] && source "~/.zsh/$PLATFORM.zsh"
