@@ -10,4 +10,4 @@ export PATH="$PATH:/usr/games:/Users/nathan/bin:/usr/local/share/npm/bin:/Users/
 # Include the z script for intelligent directory jumping
 . $HOME/bin/z.sh
 
-# PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+export PATH=$HOME/.rvm/bin:$PATH # Add RVM to PATH for scripting
