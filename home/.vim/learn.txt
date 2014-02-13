@@ -1,0 +1,2 @@
+Ctrl-F/B - Move forward and backward a screen
+* - Search for the word under the cursor
