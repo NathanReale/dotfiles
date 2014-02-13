@@ -92,4 +92,6 @@ elif [[ $PLATFORM == "Linux" ]] ; then
 fi
 
 # Load platform-specific configurations
-[[ -s "~/.zsh/$PLATFORM.zsh" ]] && source "~/.zsh/$PLATFORM.zsh"
+if [[ -f ~/.zsh/$PLATFORM.zsh ]]; then
+	source ~/.zsh/$PLATFORM.zsh
+fi
