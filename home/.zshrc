@@ -1,14 +1,14 @@
-# Skip this for non-interactive shelld
+# Skip this for non-interactive shell
 [[ -z "$PS1" ]] && return
 
-# Set the SVN Editor
-export SVN_EDITOR=vim
-
-
+# Load colors
 [ -f /etc/DIR_COLORS ] && eval $(dircolors -b /etc/DIR_COLORS)
 export ZLSCOLORS="${LS_COLORS}"
 
+
+#
 # Enable command completion
+#
 autoload -U compinit
 compinit
 
@@ -25,6 +25,7 @@ zstyle ':completion:*:kill:*' force-list always
 # Set Environment Variables
 PAGER='less'
 EDITOR='vim'
+SVN_EDITOR='vim'
 
 # Set History Options
 HISTFILE=$HOME/.zhistory
@@ -54,6 +55,7 @@ PR_NO_COLOR="%{$terminfo[sgr0]%}"
 # Define Prompt
 PS1="[$PR_RED%* $PR_BLUE%n$PR_NO_COLOR@$PR_BLUE%m$PR_NO_COLOR:$PR_GREEN%~$PR_NO_COLOR]%(!.#.$) "
 
+# Include vcs information in prompt
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git bzr svn
 zstyle ':vcs_info:(git*|hg*):*' check-for-changes true
@@ -95,3 +97,10 @@ fi
 if [[ -f ~/.zsh/$PLATFORM.zsh ]]; then
 	source ~/.zsh/$PLATFORM.zsh
 fi
+
+
+# Load local configuration file
+if [[ -f ~/.local.zsh ]]; then
+	source ~/.local.zsh
+fi
+
