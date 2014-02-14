@@ -2,11 +2,9 @@ alias vi="vim"
 alias v="vim"
 
 alias l="ls"
-alias ls="ls -G"
 alias la="ls -A"
 alias ll="ls -l"
 
-alias y="yaourt"
 
 # Pass aliases to sudo
 alias sudo="sudo "

@@ -1,3 +1,5 @@
+alias ls="ls -G"
+
 # Add directories to PATH
 # Add npm to the directory path
 # Add Google App Engine
