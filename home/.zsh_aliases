@@ -1,0 +1,14 @@
+alias vi="vim"
+alias v="vim"
+
+alias l="ls"
+alias la="ls -A"
+alias ll="ls -l"
+
+
+# Pass aliases to sudo
+alias sudo="sudo "
+
+
+# Shorten lineman
+alias lm=lineman
