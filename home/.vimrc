@@ -1,3 +1,6 @@
+set encoding=utf-8
+
+
 " Load the vundle config
 source ~/.vim/vundle.vim
 
