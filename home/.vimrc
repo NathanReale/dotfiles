@@ -14,6 +14,7 @@ Bundle 'snipMate'
 Bundle 'Command-T'
 Bundle 'MatchTag'
 Bundle 'Lokaltog/vim-powerline'
+Bundle 'johnsyweb/vim-makeshift'
 
 syntax on
 set number
@@ -111,7 +112,7 @@ nnoremap k gk
 nnoremap ; :
 
 " Compile and run the current file
-nnoremap <leader>m :!make && ./main<CR>
+nnoremap <leader>m :MakeshiftBuild<CR>
 
 " Toggle spell check
 nnoremap <leader>s :setlocal spell! spelllang=en_us<CR>
@@ -166,6 +167,10 @@ let g:syntastic_mode_map = { 'mode': 'active',
 	\ 'passive_filetypes': ['html'] }
 
 let g:syntastic_c_include_dirs = ['/nfshome/rbutler/public/courses/pp6430/mpich3i/include']
+let g:syntastic_cpp_compiler = 'g++'
+let g:syntastic_cpp_compiler_options = '-Weffc++ -pedantic'
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_auto_loc_list=1
 
 " Source the vimrc file after saving it
 au bufwritepost .vimrc source $MYVIMRC

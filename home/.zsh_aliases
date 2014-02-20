@@ -5,7 +5,7 @@ alias l="ls"
 alias la="ls -A"
 alias ll="ls -l"
 
-alias t="tmux attach || tmux new"
+alias t="tmux -2 attach || tmux -2 new"
 
 
 # Pass aliases to sudo
