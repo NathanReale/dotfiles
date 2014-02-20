@@ -112,7 +112,7 @@ nnoremap k gk
 nnoremap ; :
 
 " Compile and run the current file
-nnoremap <leader>m :MakeshiftBuild<CR>
+nnoremap <leader>m :MakeshiftBuild<CR><CR>
 
 " Toggle spell check
 nnoremap <leader>s :setlocal spell! spelllang=en_us<CR>
@@ -187,3 +187,6 @@ au FileType ruby setlocal et ts=2 sw=2 tw=0
 " Turn on spell by default for tex files
 au FileType tex setlocal spell
 
+" Only show the quickfix window when there are problems
+autocmd QuickFixCmdPost [^l]* nested cwindow
+autocmd QuickFixCmdPost    l* nested lwindow
