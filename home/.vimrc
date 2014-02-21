@@ -5,7 +5,7 @@ source ~/.vim/vundle.vim
 
 " Installed Plugins
 Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/nerdcommenter'
+Bundle 'tpope/vim-commentary'
 Bundle 'scrooloose/syntastic'
 Bundle 'majutsushi/tagbar'
 Bundle 'LaTeX-Box'
@@ -25,6 +25,7 @@ set incsearch
 set hls
 set ignorecase
 set smartcase
+set cursorline
 set scrolloff=4
 set mouse=a
 set ttymouse=xterm2
@@ -102,9 +103,6 @@ nnoremap <leader>n :NERDTreeToggle<cr>
 
 " Toggle Tagbar
 nnoremap <leader>a :TagbarToggle<cr>
-
-" Toggle comment
-nnoremap <leader>c :call NERDComment(0, "toggle")<CR>
 
 " Call Command-T
 nnoremap <leader>t :CommandT<cr>
