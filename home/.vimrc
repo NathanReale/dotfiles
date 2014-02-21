@@ -1,6 +1,5 @@
 set encoding=utf-8
 
-
 " Load the vundle config
 source ~/.vim/vundle.vim
 
@@ -21,7 +20,6 @@ set number
 set shiftwidth=4
 set tabstop=4
 set autoindent
-set smartindent
 set showmatch
 set incsearch
 set hls
@@ -32,6 +30,7 @@ set mouse=a
 set ttymouse=xterm2
 set background=dark
 set t_Co=256
+set backspace=2
 colorscheme molokai
 let mapleader=","
 let maplocalleader=","
@@ -40,50 +39,9 @@ filetype plugin on
 filetype indent on
 
 
-" Set status line
+" Set status line (Currently uses Powerline)
 "set statusline=%f\ %m\ %r\ Line:%l/%L[%p%%]\ Col:%c\ Buf:%n\ [%b][0x%B]
 set laststatus=2
-
-hi StatColor guibg=#95e454 guifg=black ctermbg=lightgreen ctermfg=black
-hi Modified guibg=orange guifg=black ctermbg=lightred ctermfg=black
-
-function! MyStatusLine(mode)
-	let statusline=""
-	if a:mode == 'Enter'
-		let statusline.="%#StatColor#"
-	endif
-	let statusline.="\(%n\)\ %f\ "
-	if a:mode == 'Enter'
-		let statusline.="%*"
-	endif
-	let statusline.="%#Modified#%m"
-	if a:mode == 'Leave'
-		let statusline.="%*%r"
-	elseif a:mode == 'Enter'
-		let statusline.="%r%*"
-	endif
-	let statusline .= "\ (%l/%L,\ %c)\ %P%=%h%w\ %y\ [%{&encoding}:%{&fileformat}]\ \ "
-	return statusline
-endfunction
-
-au WinEnter * setlocal statusline=%!MyStatusLine('Enter')
-au WinLeave * setlocal statusline=%!MyStatusLine('Leave')
-set statusline=%!MyStatusLine('Enter')
-
-function! InsertStatuslineColor(mode)
-	if a:mode == 'i'
-		hi StatColor guibg=orange ctermbg=lightred
-	elseif a:mode == 'r'
-		hi StatColor guibg=#e454ba ctermbg=magenta
-	elseif a:mode == 'v'
-		hi StatColor guibg=#e454ba ctermbg=magenta
-	else
-		hi StatColor guibg=red ctermbg=red
-	endif
-endfunction 
-
-au InsertEnter * call InsertStatuslineColor(v:insertmode)
-au InsertLeave * hi StatColor guibg=#95e454 guifg=black ctermbg=lightgreen ctermfg=black
 
 " Save when vim loses focus
 au FocusLost * :wa
@@ -96,7 +54,6 @@ set nospell spelllang=en_us
 set spellfile=~/.vim/spellfile.add
 set spellcapcheck=
 
-set backspace=2
 
 " Use w!! to write protected file
 cmap w!! %!sudo tee > /dev/null %
@@ -120,12 +77,11 @@ nnoremap <leader>s :setlocal spell! spelllang=en_us<CR>
 " Toggle paste mode on and off
 set pastetoggle=<leader>p
 
-" Map <F4> to toggle search highlighting
+" Toggle search highlighting
 nnoremap <leader>h :set hls!<CR>
 
 " Create a line of equal signs below the current line
 nnoremap <leader>= yypVr=
-
 
 "Realign the current paragraph
 nnoremap <leader>w gqap
