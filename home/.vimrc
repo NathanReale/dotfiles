@@ -123,6 +123,7 @@ let g:syntastic_mode_map = { 'mode': 'active',
 let g:syntastic_c_include_dirs = ['/nfshome/rbutler/public/courses/pp6430/mpich3i/include']
 let g:syntastic_cpp_compiler = 'g++'
 let g:syntastic_cpp_compiler_options = '-Weffc++ -pedantic'
+let g:syntastic_cpp_checkers = ['gcc', 'cpplint']
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_auto_loc_list=1
 
