@@ -113,6 +113,10 @@ if bufwinnr(1)
 	nnoremap - <C-W>-
 endif
 
+" Better man page searching
+runtime ftplugin/man.vim
+nnoremap <silent>K :<C-U>exe "Man" v:count "<cword>"<CR>
+
 " Add fancy symbols to vim-powerline
 let g:Powerline_symbols = 'compatible'
 
