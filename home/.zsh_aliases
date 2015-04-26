@@ -7,10 +7,5 @@ alias ll="ls -l"
 
 alias t="tmux -2 attach || tmux -2 new"
 
-
 # Pass aliases to sudo
 alias sudo="sudo "
-
-
-# Shorten lineman
-alias lm=lineman
