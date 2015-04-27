@@ -3,13 +3,11 @@ source $HOME/.homesick/repos/dotfiles/antigen/antigen.zsh
 
 antigen use oh-my-zsh
 
+antigen bundle vi-mode
 antigen bundle rupa/z
 
 antigen theme ys
 antigen apply
-
-# Set vi mode
-# set -o vi
 
 # Source .zsh_aliases
 if [[ -f $HOME/.zsh_aliases ]]; then
@@ -35,3 +33,5 @@ if [[ -f ~/.local.zsh ]]; then
 	source ~/.local.zsh
 fi
 
+# Lower the timeout when pressing esc on the command line
+export KEYTIMEOUT=1
