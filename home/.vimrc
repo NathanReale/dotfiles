@@ -1,151 +1,228 @@
-set encoding=utf-8
+set nocompatible
+filetype off
 
-" Load the vundle config
-source ~/.vim/vundle.vim
+" Set these before importing plugins.
+let mapleader=","
+let maplocalleader="\\"
 
-" Installed Plugins
-Bundle 'scrooloose/nerdtree'
-Bundle 'tpope/vim-commentary'
-Bundle 'scrooloose/syntastic'
-Bundle 'majutsushi/tagbar'
-Bundle 'LaTeX-Box'
-Bundle 'snipMate'
-Bundle 'Command-T'
-Bundle 'MatchTag'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'johnsyweb/vim-makeshift'
+" Load Vundle
+set rtp+=~/.vim/bundle/vundle/
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
+
+" Vundle Plugins
+Plugin 'sjl/badwolf'
+
+Plugin 'scrooloose/syntastic'
+Plugin 'tpope/vim-commentary'
+Plugin 'kien/ctrlp.vim'
+Plugin 'mileszs/ack.vim'
+Plugin 'bling/vim-airline'
+Plugin 'tpope/vim-vinegar'
+Plugin 'MattesGroeger/vim-bookmarks'
+Plugin 'johnsyweb/vim-makeshift'
+
+Plugin 'google/vim-maktaba'
+Plugin 'google/vim-syncopate'
+call vundle#end()
+
+" Load a local plugins file if it exists
+if filereadable(expand("\~/.vimrc.local.plugins"))
+  source \~/.vimrc.local.plugins
+endif
+
+filetype plugin indent on
 
 syntax on
-set number
-set shiftwidth=4
-set tabstop=4
+set relativenumber
+set number  " Current line shows line number, all other relative
+set shiftwidth=2
+set tabstop=2
+set expandtab
 set autoindent
 set showmatch
 set incsearch
 set hls
 set ignorecase
 set smartcase
+set gdefault
 set cursorline
 set scrolloff=4
 set mouse=a
-set ttymouse=xterm2
-set background=dark
-set t_Co=256
 set backspace=2
-colorscheme molokai
-let mapleader=","
-let maplocalleader=","
-
-filetype plugin on
-filetype indent on
-
-
-" Set status line (Currently uses Powerline)
-"set statusline=%f\ %m\ %r\ Line:%l/%L[%p%%]\ Col:%c\ Buf:%n\ [%b][0x%B]
 set laststatus=2
+set modelines=0
+set showcmd
+set visualbell
 
-" Save when vim loses focus
-au FocusLost * :wa
+" Use the badwolf colorscheme
+let g:badwolf_darkgutter = 1
+set background=dark
+colorscheme badwolf
 
-let g:LatexBox_viewer = 'open -a Skim'
-let g:LatexBox_latexmk_option = '-pvc'
+if has('gui_running')
+  set guifont=Droid\ Sans\ Mono\ for\ Powerline
 
-" Add spell check, ignore caps
-set nospell spelllang=en_us
-set spellfile=~/.vim/spellfile.add
-set spellcapcheck=
+  " Get rid of most of the toolbars and scrollbars in gvim
+  set go-=m
+  set go-=T
+  set go-=l
+  set go-=L
+  set go-=r
+  set go-=R
 
+  " Use system clipboard
+  set go-=a
+  set go+=P
 
-" Use w!! to write protected file
-cmap w!! %!sudo tee > /dev/null %
+  highlight SpellBad term=underline gui=undercurl guisp=Orange
 
-" Use jj for escape
-ino jj <esc>
-cno jj <C-c>
+  " Different cursors for different modes.
+  set guicursor=n-c:block-Cursor-blinkon0
+  set guicursor+=v:block-vCursor-blinkon0
+  set guicursor+=i-ci:ver20-iCursor
+else
+  set t_Co=256
 
+  " Disable Background Color Erase (BCE) so that color schemes
+  " work properly when Vim is used inside tmux and GNU screen.
+  " See also http://snk.tuxfamily.org/log/vim-256color-bce.html
+  set t_ut=
+
+  " Reset the colorscheme because we updated the number of colors
+  colorscheme badwolf
+endif
+
+" Customize airline
+let g:airline_theme = 'badwolf'
+let g:airline_powerline_fonts = 1
+
+" Brighten the status lines of inactive windows, so they are readable.
+let g:airline_theme_patch_func = 'AirlineThemePatch'
+function! AirlineThemePatch(palette)
+  " Update the badwolf theme to have better inactive window colors
+  if g:airline_theme == 'badwolf'
+    for colors in values(a:palette.inactive)
+      let colors[1] = "#45413b"
+      let colors[0] = "#8cffba"
+    endfor
+  endif
+endfunction
+
+" Make j and k work well with wrapped lines
 nnoremap j gj
 nnoremap k gk
 
-" Remap ; to :
-nnoremap ; :
+" Make jk and kj escape
+inoremap jk <esc>
+inoremap kj <esc>
+
+" Stop using the arrow keys
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+
+" Complete the longest common subsequence and always show the menu
+set completeopt=menuone,longest,preview
+
+" Turn on spell checking by default
+" It can be toggled with leader s
+set spell spelllang=en_us
+set spellfile=~/.vim/spellfile.add
+set spellcapcheck=
+nnoremap <leader>s :setlocal spell! spelllang=en_us<CR>
+
+" Paste from clipboard (with paste mode)
+noremap <silent> <leader>p :set paste<CR>"*p:set nopaste<CR>
+
+" Reselect what was just pasted
+" Useful for re-indenting pasted blocks
+nnoremap gp `[v`]
+
+" Toggle search highlighting
+nnoremap <silent> <space> :noh<CR>
+
+" Open vimrc in a split
+nnoremap <leader>v :vsplit $MYVIMRC<CR>
+
+set formatoptions=
+set formatoptions+=c  " auto-wrap comments
+set formatoptions+=r  " insert comment marker
+set formatoptions+=o  " insert comment marker
+set formatoptions+=q  " allow formatting of comments
+" set formatoptions+=a  " auto format
+set formatoptions+=n  " format numbered lists
+set formatoptions+=2  " Use the second line of a paragraph for indent level
+set formatoptions+=1  " Don't break lines that are already too long
+set formatoptions+=j  " Remove extra comment when joining lines
+set formatoptions+=l  " Don't break lines that are already too long
+
+" Add a line at the 80 column mark
+set colorcolumn=80
+highlight ColorColumn ctermbg=7
+
+" Syntastic options
+let g:syntastic_check_on_open = 1
+
+" Ctrl-P
+let g:ctrlp_map = '<leader>,'
+let g:ctrlp_working_path_mode = 'a'
+nnoremap <leader>b :CtrlPBuffer<cr>
+
+" Call Ack with the current token
+nnoremap <leader>sa :Ack <cword><cr>
+
+" Make YCM close the scratch window
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+
+" Shortcut for Syncopate
+nnoremap <leader>e :SyncopateExportToBrowser<cr>
 
 " Compile and run the current file
 nnoremap <leader>m :MakeshiftBuild<CR><CR>
 
-" Toggle spell check
-nnoremap <leader>s :setlocal spell! spelllang=en_us<CR>
+" Make it easier to enter a command
+nnoremap ; :
 
-" Toggle paste mode on and off
-set pastetoggle=<leader>p
+" ctrl-jklm  changes to that split
+map <c-j> <c-w>j
+map <c-k> <c-w>k
+map <c-l> <c-w>l
+map <c-h> <c-w>h
 
-" Toggle search highlighting
-nnoremap <leader>h :set hls!<CR>
+" Cycle through buffers easily
+map <C-space> :bn <CR>
+map <C-M-space> :bp <CR>
 
-" Create a line of equal signs below the current line
-nnoremap <leader>= yypVr=
+" Save when losing focus
+au FocusLost * :silent! wall
 
-"Realign the current paragraph
-nnoremap <leader>w gqap
+" Only show cursorline in the current window and in normal mode.
+augroup cline
+    au!
+    au WinLeave,InsertEnter * set nocursorline
+    au WinEnter,InsertLeave * set cursorline
+augroup END
 
-" Open vimrc in a new window
-nnoremap <leader>v :vsplit $MYVIMRC<cr>  
+set list
+set listchars=tab:▸\ 
+" Only show trailing spaces when not in insert mode.
+augroup trailing
+    au!
+    au InsertEnter * :set listchars-=trail:⌴
+    au InsertLeave * :set listchars+=trail:⌴
+augroup END
 
-" Open the learn file in a vsplit
-nnoremap <leader>l :vsplit ~/.vim/learn.txt<cr>
+" Keep search matches in the middle of the window.
+" Added silent to keep the wrap around message visible
+nnoremap <silent> n nzzzv
+nnoremap <silent> N Nzzzv
 
-" Run Bundle Install
-nnoremap <leader>bi :BundleInstall<cr>
-nnoremap <leader>bu :BundleInstall!<cr>
-nnoremap <leader>bl :BundleList<cr>
+" Only format block comments
+au FileType javascript setlocal comments-=:// comments+=f://
 
-" Toggle NERDTree
-nnoremap <leader>n :NERDTreeToggle<cr>
-
-" Toggle Tagbar
-nnoremap <leader>a :TagbarToggle<cr>
-
-" Call Command-T
-nnoremap <leader>t :CommandT<cr>
-
-" Map + and - to chang ewindow size
-if bufwinnr(1)
-	nnoremap + <C-W>+
-	nnoremap - <C-W>-
+if filereadable(expand("\~/.vimrc.local"))
+  source \~/.vimrc.local
 endif
-
-" Better man page searching
-runtime ftplugin/man.vim
-nnoremap <silent>K :<C-U>exe "Man" v:count "<cword>"<CR>
-
-" Add fancy symbols to vim-powerline
-let g:Powerline_symbols = 'compatible'
-
-let g:syntastic_mode_map = { 'mode': 'active',
-	\ 'active_filetypes': [],
-	\ 'passive_filetypes': ['html'] }
-
-let g:syntastic_c_include_dirs = ['/nfshome/rbutler/public/courses/pp6430/mpich3i/include']
-let g:syntastic_cpp_compiler = 'g++'
-let g:syntastic_cpp_compiler_options = '-Weffc++ -pedantic'
-let g:syntastic_cpp_checkers = ['gcc', 'cpplint']
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_loc_list=1
-
-" Source the vimrc file after saving it
-au bufwritepost .vimrc source $MYVIMRC
-
-" Disable comments from coninuing onto the next line
-au FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
-" Make python use spaces
-au FileType python set expandtab
-
-" Use 2 spaces and no tabs in ruby files
-au FileType ruby setlocal et ts=2 sw=2 tw=0
-
-" Turn on spell by default for tex files
-au FileType tex setlocal spell
-
-" Only show the quickfix window when there are problems
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow

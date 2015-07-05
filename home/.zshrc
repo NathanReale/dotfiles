@@ -1,13 +1,26 @@
 # Load antigen
 source $HOME/.homesick/repos/dotfiles/antigen/antigen.zsh
 
+# oh-my-zsh options
+DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_TITLE="true"
+COMPLETION_WAITING_DOTS="true"
+
 antigen use oh-my-zsh
 
 antigen bundle vi-mode
 antigen bundle rupa/z
 
 antigen theme ys
+# theme nreale
+# custom $HOME/.zsh
 antigen apply
+
+# From old .zshrc
+zstyle ':completion::complete:*' use-cache 1
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Source .zsh_aliases
 if [[ -f $HOME/.zsh_aliases ]]; then
