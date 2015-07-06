@@ -48,8 +48,8 @@ if [[ -f ~/.zsh/$PLATFORM.zsh ]]; then
 fi
 
 # Load local configuration file
-if [[ -f ~/.local.zsh ]]; then
-	source ~/.local.zsh
+if [[ -f ~/.zshrc.local ]]; then
+	source ~/.zshrc.local
 fi
 
 # Lower the timeout when pressing esc on the command line

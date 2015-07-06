@@ -1,5 +1,8 @@
 *.swp
 *.swo
+
+home/.vim/.netrwhist
+
 home/.vim/bundle/*
 home/.vim/cache/*
 home/.zsh/cache/*
