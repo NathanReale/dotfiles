@@ -9,21 +9,30 @@ COMPLETION_WAITING_DOTS="true"
 
 antigen use oh-my-zsh
 
+antigen bundle vi-mode
 antigen bundle rupa/z
 
 antigen theme $ZSH_BASE/themes nreale
 antigen apply
 
-# From old .zshrc
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Cache completions
 zstyle ':completion::complete:*' use-cache 1
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
-export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Allow editing command line
 autoload -z edit-command-line
 zle -N edit-command-line
 bindkey "^E" edit-command-line
+
+# Make up and down search by default
+bindkey '^[[A' up-line-or-search
+bindkey '^[[B' down-line-or-search
+
+# Lower the timeout when pressing esc on the command line
+export KEYTIMEOUT=1
 
 # Source .zsh_aliases
 if [[ -f $HOME/.zsh_aliases ]]; then
@@ -51,6 +60,3 @@ fi
 if [[ -f ~/.zshrc.local ]]; then
 	source ~/.zshrc.local
 fi
-
-# Lower the timeout when pressing esc on the command line
-export KEYTIMEOUT=1
