@@ -1,3 +1,12 @@
+# Decide if we should use work settings, based on the box name
+export ENABLE_WORK_SETTINGS=false
+if [[ -f $HOME/.box-name ]]; then
+  local name=$(cat $HOME/.box-name)
+  if [[ name == "nreale0" ]]; then
+    export ENABLE_WORK_SETTINGS=true
+  fi
+fi
+
 # Load antigen
 source $HOME/.homesick/repos/dotfiles/antigen/antigen.zsh
 ZSH_BASE=$HOME/.zsh
