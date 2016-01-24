@@ -1,6 +1,10 @@
 *.swp
+*.swo
+
 home/.vim/bundle/*
 home/.vim/.netrwhist
+home/.vim/cache/*
+home/.zsh/cache/*
 
 !home/.vim/bundle/vundle
 !home/.vim/bundle/vundle/*

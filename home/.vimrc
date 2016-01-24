@@ -160,7 +160,7 @@ set formatoptions+=l  " Don't break lines that are already too long
 
 " Add a line at the 80 column mark
 set colorcolumn=80
-highlight ColorColumn ctermbg=7
+highlight ColorColumn ctermbg=8
 
 " Syntastic options
 let g:syntastic_check_on_open = 1
@@ -186,7 +186,10 @@ nnoremap <leader>m :MakeshiftBuild<CR><CR>
 " Make it easier to enter a command
 nnoremap ; :
 
-" ctrl-jklm  changes to that split
+" Open a split and switch to it
+nnoremap <leader>w <C-w>v<C-w>l
+
+" ctrl-jklm changes to that split
 map <c-j> <c-w>j
 map <c-k> <c-w>k
 map <c-l> <c-w>l
@@ -222,6 +225,9 @@ nnoremap <silent> N Nzzzv
 
 " Only format block comments
 au FileType javascript setlocal comments-=:// comments+=f://
+
+" Use line level comments in C++
+au FileType cpp setlocal commentstring=//\ %s
 
 if filereadable(expand("\~/.vimrc.local"))
   source \~/.vimrc.local
