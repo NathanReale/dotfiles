@@ -1,5 +1,6 @@
 *.swp
 home/.vim/bundle/*
+home/.vim/.netrwhist
 
 !home/.vim/bundle/vundle
 !home/.vim/bundle/vundle/*
