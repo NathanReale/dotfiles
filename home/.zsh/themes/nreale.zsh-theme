@@ -19,14 +19,15 @@ if $ENABLE_WORK_SETTINGS; then
     if [[ "$work_path" != "" ]] ; then
       echo $work_path
     else
-      echo $PWD/#HOME/~
+      echo ${PWD/#HOME/~}
     fi
   }
 else
   function current_dir() {
-    echo $PWD/#$HOME/~
+    echo ${PWD/#$HOME/~}
   }
 fi
+local cur_dir='$(current_dir)'
 
 # Git info.
 function git_prompt_info() {
@@ -63,7 +64,7 @@ PROMPT="
 %{$fg[white]%}at \
 %{$fg[green]%}$(box_name) \
 %{$fg[white]%}in \
-%{$fg[yellow]%}$(current_dir)%{$reset_color%}\
+%{$fg[yellow]%}${cur_dir}%{$reset_color%}\
 ${git_info}\
 ${work_prompt} \
 %{$fg[white]%}[%*]
