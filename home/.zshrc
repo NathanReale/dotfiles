@@ -2,7 +2,7 @@
 export ENABLE_WORK_SETTINGS=false
 if [[ -f $HOME/.box-name ]]; then
   local name=$(cat $HOME/.box-name)
-  if [[ name == "nreale0" ]]; then
+  if [[ $name == "nreale0" ]]; then
     export ENABLE_WORK_SETTINGS=true
   fi
 fi
@@ -26,7 +26,7 @@ bgnotify_threshold=10
 antigen bundle bgnotify
 
 antigen bundle zsh-users/zsh-syntax-highlighting
-antigen bundle tarruda/zsh-autosuggestions
+antigen bundle zsh-users/zsh-autosuggestions
 
 antigen theme $ZSH_BASE/themes nreale
 antigen apply
@@ -60,10 +60,10 @@ bindkey -sM vicmd '^[' '^G'
 
 # TODO: This is overriding zle-line-init in the vi-mode plugin. Is that bad?
 # Enable autosuggestions automatically.
-zle-line-init() {
-    zle autosuggest-start
-}
-zle -N zle-line-init
+# zle-line-init() {
+#    zle autosuggest-start
+# }
+# zle -N zle-line-init
 
 # Source .zsh_aliases
 if [[ -f $HOME/.zsh_aliases ]]; then
